@@ -1,0 +1,34 @@
+prefix : <http://buildvoc.co.uk/resource/>
+prefix grddl: <http://www.w3.org/2003/g/data-view#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix ns: <http://www.w3.org/2003/06/sw-vocab-status/ns#>
+prefix skosxl: <http://www.w3.org/2008/05/skos-xl#>
+prefix coda: <http://art.uniroma2.it/coda/contracts/>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix olo: <http://purl.org/ontology/olo/core#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dc: <http://purl.org/dc/elements/1.1/>
+
+rule it.uniroma2.art.Sheet2RDFAnnotation id:row {
+	nodes = {
+		subject uri(coda:randIdGen('concept')) col_1/value .
+		col_1_node literal@en col_1/value .
+		col_2_node literal@en col_2/value .
+		col_3_node uri col_3/value .
+		col_4_node literal@en col_4/value .
+		col_5_node literal@en col_5/value .
+	}
+	graph = {
+		$subject rdf:type skos:Concept .
+		$subject skos:inScheme <http://buildvoc.co.uk/resource/conceptScheme_751925ed> .
+		OPTIONAL { $subject skos:prefLabel $col_1_node . }
+		OPTIONAL { $subject skos:definition $col_2_node . }
+		OPTIONAL { $subject skos:broader $col_3_node . }
+		OPTIONAL { $subject skos:note $col_4_node . }
+		OPTIONAL { $subject skos:notation $col_5_node . }
+	}
+}
